@@ -2,8 +2,6 @@ import React from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { Search, MoreVert } from "@mui/icons-material";
 
-import { defaultProfilePicture } from "../../../constants/data";
-
 const Header = styled(Box)`
   height: 44px;
   display: flex;
@@ -39,13 +37,13 @@ const RightContainer = styled(Box)`
   }
 `;
 
-export default function ChatHeader() {
+export default function ChatHeader({ person }) {
   return (
     <Header>
-      <Image src={defaultProfilePicture} alt="user-dp" />
+      <Image src={person.picture} alt="user-dp" />
       <Box>
-        <Name> Name </Name>
-        <Status> Online Status </Status>
+        <Name> {person.name} </Name>
+        <Status> Offline </Status>
       </Box>
       <RightContainer>
         <Search />

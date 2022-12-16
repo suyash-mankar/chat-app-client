@@ -16,7 +16,7 @@ const StyledDivider = styled(Divider)`
   background-color: rgba(134, 150, 160, 0.15);
 `;
 
-export default function Conversations() {
+export default function Conversations({ searchText }) {
   const [users, setUsers] = useState([]);
 
   const { account } = useContext(AccountContext);
@@ -24,20 +24,25 @@ export default function Conversations() {
   useEffect(() => {
     const fetchData = async () => {
       let response = await getUsers();
-      setUsers(response);
+
+      const filteredData = response.filter((user) =>
+        user.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+
+      setUsers(filteredData);
     };
     fetchData();
-  }, []);
+  }, [searchText]);
 
   return (
     <Component>
-      {users.map((user, index) => {
+      {users.map((user) => {
         return (
           user.sub !== account.sub && (
-            <>
-              <Conversation user={user} key={user._id} />
-              <StyledDivider key={index} />
-            </>
+            <div key={user.sub}>
+              <Conversation user={user} />
+              <StyledDivider />
+            </div>
           )
         );
       })}

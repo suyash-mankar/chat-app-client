@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, InputBase, styled } from "@mui/material";
 import { EmojiEmotionsOutlined, AttachFile, Mic } from "@mui/icons-material";
 
@@ -32,12 +32,18 @@ const InputField = styled(InputBase)`
 `;
 
 export default function Footer() {
+  const [text, setText] = useState("");
+
   return (
     <Container>
       <EmojiEmotionsOutlined style={{ fontSize: "1.7rem" }} />
       <AttachFile style={{ fontSize: "1.7rem", transform: "rotate(40deg)" }} />
       <Search>
-        <InputField placeholder="Type a message" />
+        <InputField
+          placeholder="Type a message"
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={() => }
+        />
       </Search>
       <Mic style={{ fontSize: "1.7rem" }} />
     </Container>

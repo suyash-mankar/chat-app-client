@@ -1,5 +1,7 @@
 import { Dialog, Box, styled } from "@mui/material";
 import React from "react";
+import { useContext } from "react";
+import { AccountContext } from "../../context/AccountProvider";
 
 // components
 import Menu from "./menu/Menu";
@@ -12,7 +14,7 @@ const Component = styled(Box)`
 
 const LeftComponent = styled(Box)`
   min-width: 450px;
-  background: #111A20;
+  background: #111a20;
 `;
 
 const RightComponent = styled(Box)`
@@ -35,6 +37,8 @@ const dialogStyle = {
 };
 
 export default function ChatDialog() {
+  const { person } = useContext(AccountContext);
+
   return (
     <Dialog
       open={true}
@@ -47,8 +51,7 @@ export default function ChatDialog() {
           <Menu />
         </LeftComponent>
         <RightComponent>
-          <ChatBox />
-          {/* <EmptyChat /> */}
+          {person ? <ChatBox /> : <EmptyChat />}
         </RightComponent>
       </Component>
     </Dialog>

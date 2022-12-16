@@ -38,14 +38,17 @@ const InputField = styled(InputBase)`
   }
 `;
 
-export default function Search() {
+export default function Search({ setSearchText }) {
   return (
     <Component>
       <Wrapper>
         <Icon>
           <SearchIcon fontSize="small" />
         </Icon>
-        <InputField placeholder="Search or start new chat" />
+        <InputField
+          placeholder="Search or start new chat"
+          onChange={(e) => setSearchText(e.target.value)}
+        />
       </Wrapper>
     </Component>
   );
