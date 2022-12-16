@@ -3,7 +3,7 @@ export const iconPDF =
 export const defaultProfilePicture =
   "https://static.straitstimes.com.sg/s3fs-public/articles/2020/12/01/af_moneyheist_011220.jpg";
 export const emptyChatImage =
-  "https://i.gadgets360cdn.com/large/whatsapp_multi_device_support_update_image_1636207150180.jpg";
+  "https://user-images.githubusercontent.com/84366054/208000454-9fcdecff-3c68-40c9-9ce0-9bc384847f94.png";
 export const qrCodeImage =
   "https://www.ginifab.com/feeds/qr_code/img/qrcode.jpg";
 export const emptyProfilePicture =

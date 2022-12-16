@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import { MoreVert } from "@mui/icons-material";
-import { Menu, MenuItem, styled, Paper } from "@mui/material";
+import { styled, Menu, MenuItem } from "@mui/material";
 
+const MenuStyle = {
+  background: "#233138",
+};
 
 const MenuOption = styled(MenuItem)`
   font-size: 14px;
   padding: 15px 60px 5px 24px;
-  color: black;
+  color: #d1d7db;
+
+  &:hover {
+    background: #111b21;
+  }
 `;
 
-
-export default function HeaderMenu() {
-  const [open, setOpen] = useState(null);
-
+export default function HeaderMenu({ setOpenDrawer }) {
+  const [openMenu, setOpenMenu] = useState(null);
+  const open = Boolean(openMenu);
+  
   const handleClose = () => {
-    setOpen(null);
+    setOpenMenu(null);
   };
 
   const handleClick = (e) => {
-    setOpen(e.currentTarget);
+    setOpenMenu(e.currentTarget);
   };
 
   return (
@@ -26,11 +33,10 @@ export default function HeaderMenu() {
       <MoreVert onClick={handleClick} />
 
       <Menu
-        anchorEl={open}
+        anchorEl={openMenu}
         keepMounted
         open={open}
         onClose={handleClose}
-        getContentAnchorE1={null}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "center",
@@ -39,10 +45,16 @@ export default function HeaderMenu() {
           vertical: "top",
           horizontal: "right",
         }}
+        PaperProps={{ sx: MenuStyle }}
       >
-        <MenuOption onClick={handleClose}>Profile</MenuOption>
-        <MenuOption onClick={handleClose}>Profile</MenuOption>
-        <MenuOption onClick={handleClose}>Profile</MenuOption>
+        <MenuOption
+          onClick={() => {
+            handleClose();
+            setOpenDrawer(true);
+          }}
+        >
+          Profile
+        </MenuOption>
       </Menu>
     </>
   );

@@ -5,7 +5,6 @@ import { Search as SearchIcon } from "@mui/icons-material";
 const Component = styled(Box)`
   background: #111b21;
   height: 45px;
-  border-bottom: 1px solid rgba(134, 150, 160, 0.15);
   display: flex;
   align-items: center;
 `;
@@ -32,6 +31,11 @@ const InputField = styled(InputBase)`
   height: 15px;
   font-size: 14px;
   color: rgba(209, 215, 219);
+  font-family: inherit;
+
+  & ::placeholder {
+    color: #d1d7db;
+  }
 `;
 
 export default function Search() {
