@@ -4,6 +4,7 @@ import React from "react";
 // components
 import Menu from "./menu/Menu";
 import EmptyChat from "./chat/EmptyChat";
+import ChatBox from "./chat/ChatBox";
 
 const Component = styled(Box)`
   display: flex;
@@ -46,7 +47,8 @@ export default function ChatDialog() {
           <Menu />
         </LeftComponent>
         <RightComponent>
-          <EmptyChat />
+          <ChatBox />
+          {/* <EmptyChat /> */}
         </RightComponent>
       </Component>
     </Dialog>
