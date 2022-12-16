@@ -4,14 +4,14 @@ import { Box } from "@mui/material";
 // components
 import ChatHeader from "./ChatHeader";
 import Messages from "./Messages";
-import ChatFooter from "./ChatFooter";
+import Footer from "./Footer";
 
 export default function ChatBox() {
   return (
-    <Box>
+    <Box style={{ height: "75%" }}>
       <ChatHeader />
       <Messages />
-      <ChatFooter />
+      <Footer />
     </Box>
   );
 }
