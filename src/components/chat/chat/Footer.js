@@ -31,9 +31,7 @@ const InputField = styled(InputBase)`
   font-family: inherit;
 `;
 
-export default function Footer() {
-  const [text, setText] = useState("");
-
+export default function Footer({ sendText, messageText, setMessageText }) {
   return (
     <Container>
       <EmojiEmotionsOutlined style={{ fontSize: "1.7rem" }} />
@@ -41,8 +39,9 @@ export default function Footer() {
       <Search>
         <InputField
           placeholder="Type a message"
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={() => }
+          onChange={(e) => setMessageText(e.target.value)}
+          onKeyDown={(e) => sendText(e)}
+          value={messageText}
         />
       </Search>
       <Mic style={{ fontSize: "1.7rem" }} />
