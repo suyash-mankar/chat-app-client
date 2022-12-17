@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Box, Typography, styled } from "@mui/material";
-import { formatDate } from "../../../utils/common";
+import { formatDate, downloadMedia } from "../../../utils/common";
 import { AccountContext } from "../../../context/AccountProvider";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import { iconPDF } from "../../../constants/data";
 
 const Sent = styled(Box)`
   background: #025144;
@@ -60,8 +61,11 @@ export default function Message({ message }) {
         </Sent>
       ) : (
         <Received>
-          <Text> {message.text} </Text>
-          <Time> {formatDate(message.createdAt)} </Time>
+          {message.type === "file" ? (
+            <FileMessage message={message} />
+          ) : (
+            <TextMessage message={message} />
+          )}
         </Received>
       )}
     </>
@@ -79,9 +83,14 @@ const TextMessage = ({ message }) => {
 
 const FileMessage = ({ message }) => {
   return (
-    <Box>
+    <Box style={{ position: "relative" }}>
       {message?.text?.includes(".pdf") ? (
-        <Box></Box>
+        <Box style={{ display: "flex", alignItems: "center" }}>
+          <img src={iconPDF} alt="pdf" style={{ width: 80 }} />
+          <Typography style={{ color: "#e9edef", fontSize: 14 }}>
+            {message.text.split("/").pop()}{" "}
+          </Typography>
+        </Box>
       ) : (
         <img
           style={{
@@ -89,13 +98,22 @@ const FileMessage = ({ message }) => {
             height: "100%",
             maxHeight: 300,
             objectFit: "cover",
+            borderRadius: "5px",
           }}
           src={message.text}
           alt={message.text}
         />
       )}
-      <Time>
-        <GetAppIcon />
+      <Time style={{ position: "absolute", bottom: 0, right: 0 }}>
+        <GetAppIcon
+          onClick={(e) => downloadMedia(e, message.text)}
+          style={{
+            marginRight: "10px",
+            border: "1px solid grey",
+            borderRadius: "50%",
+          }}
+          fontSize="small"
+        />
         {formatDate(message.createdAt)}
       </Time>
     </Box>
