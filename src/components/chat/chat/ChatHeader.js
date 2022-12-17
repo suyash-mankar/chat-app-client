@@ -1,6 +1,9 @@
 import React from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { Search, MoreVert } from "@mui/icons-material";
+import { useContext } from "react";
+import { AccountContext } from "../../../context/AccountProvider";
+import CircleIcon from "@mui/icons-material/Circle";
 
 const Header = styled(Box)`
   height: 44px;
@@ -38,12 +41,22 @@ const RightContainer = styled(Box)`
 `;
 
 export default function ChatHeader({ person }) {
+  const { activeUsers } = useContext(AccountContext);
+
   return (
     <Header>
       <Image src={person.picture} alt="user-dp" />
       <Box>
         <Name> {person.name} </Name>
-        <Status> Offline </Status>
+        <Status>
+          {activeUsers?.find((user) => user.sub === person.sub) ? (
+            <>
+              <CircleIcon style={{ color: "green", fontSize: 8 }} /> online
+            </>
+          ) : (
+            "offline"
+          )}
+        </Status>
       </Box>
       <RightContainer>
         <Search />

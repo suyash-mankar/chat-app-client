@@ -19,7 +19,7 @@ const StyledDivider = styled(Divider)`
 export default function Conversations({ searchText }) {
   const [users, setUsers] = useState([]);
 
-  const { account } = useContext(AccountContext);
+  const { account, socket, setActiveUsers } = useContext(AccountContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +33,13 @@ export default function Conversations({ searchText }) {
     };
     fetchData();
   }, [searchText]);
+
+  useEffect(() => {
+    socket.current.emit("addUsers", account);
+    socket.current.on("getUsers", (users) => {
+      setActiveUsers(users);
+    });
+  }, [account]);
 
   return (
     <Component>

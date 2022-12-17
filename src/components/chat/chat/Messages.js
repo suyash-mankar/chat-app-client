@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, styled } from "@mui/material";
 import { getMessages } from "../../../service/api";
 import Message from "./Message";
@@ -19,6 +19,7 @@ const Container = styled(Box)`
 
 export default function Messages({ person, conversation, newMessageFlag }) {
   const [messages, setMessages] = useState([]);
+  const scrollRef = useRef();
 
   useEffect(() => {
     const getMessageDetails = async () => {
@@ -28,13 +29,18 @@ export default function Messages({ person, conversation, newMessageFlag }) {
     conversation._id && getMessageDetails();
   }, [person._id, conversation._id, newMessageFlag]);
 
+  // To keep the scroll bar at the end
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ transition: "smooth" });
+  }, [messages]);
+
   return (
     <Wrapper>
       <Component>
         {messages &&
           messages.map((message) => {
             return (
-              <Container key={message._id}>
+              <Container ref={scrollRef} key={message._id}>
                 <Message message={message} />
               </Container>
             );

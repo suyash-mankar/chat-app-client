@@ -10,6 +10,7 @@ export const downloadMedia = (e, fileUrl) => {
     fetch(fileUrl)
       .then((res) => res.blob())
       .then((blob) => {
+        // Create blob link to download
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.style.display = "none";
@@ -20,8 +21,11 @@ export const downloadMedia = (e, fileUrl) => {
 
         a.download = "" + duplicateNeme + "";
 
+        // Append to html link element page
         document.body.appendChild(a);
+        // Start download
         a.click();
+        // Clean up and remove the link
         window.URL.revokeObjectURL(url);
       })
       .catch((err) => console.log("Error while downloading the image", err));
