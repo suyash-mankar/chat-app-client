@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { formatDate } from "../../../utils/common";
 import { AccountContext } from "../../../context/AccountProvider";
+import GetAppIcon from "@mui/icons-material/GetApp";
 
 const Sent = styled(Box)`
   background: #025144;
@@ -12,7 +13,8 @@ const Sent = styled(Box)`
   display: flex;
   border-radius: 10px;
   word-break: break-word;
-
+  margin-bottom: 3px;
+  height: auto;
 `;
 
 const Received = styled(Box)`
@@ -23,6 +25,8 @@ const Received = styled(Box)`
   display: flex;
   border-radius: 10px;
   word-break: break-word;
+  margin-bottom: 3px;
+  height: auto;
 `;
 
 const Text = styled(Typography)`
@@ -48,8 +52,11 @@ export default function Message({ message }) {
     <>
       {account.sub == message.senderId ? (
         <Sent>
-          <Text> {message.text} </Text>
-          <Time> {formatDate(message.createdAt)} </Time>
+          {message.type === "file" ? (
+            <FileMessage message={message} />
+          ) : (
+            <TextMessage message={message} />
+          )}
         </Sent>
       ) : (
         <Received>
@@ -60,3 +67,37 @@ export default function Message({ message }) {
     </>
   );
 }
+
+const TextMessage = ({ message }) => {
+  return (
+    <>
+      <Text> {message.text} </Text>
+      <Time> {formatDate(message.createdAt)} </Time>
+    </>
+  );
+};
+
+const FileMessage = ({ message }) => {
+  return (
+    <Box>
+      {message?.text?.includes(".pdf") ? (
+        <Box></Box>
+      ) : (
+        <img
+          style={{
+            width: 300,
+            height: "100%",
+            maxHeight: 300,
+            objectFit: "cover",
+          }}
+          src={message.text}
+          alt={message.text}
+        />
+      )}
+      <Time>
+        <GetAppIcon />
+        {formatDate(message.createdAt)}
+      </Time>
+    </Box>
+  );
+};

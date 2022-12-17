@@ -15,6 +15,8 @@ export default function ChatBox() {
   const [messageText, setMessageText] = useState("");
   const [conversation, setConversation] = useState("");
   const [newMessageFlag, setNewMessageFlag] = useState(false);
+  const [file, setFile] = useState();
+  const [fileUrl, setFileUrl] = useState("");
 
   useEffect(() => {
     const getConversationDetails = async () => {
@@ -29,16 +31,29 @@ export default function ChatBox() {
 
   const sendText = async (e) => {
     if (e.key === "Enter") {
-      let message = {
-        senderId: account.sub,
-        receiverId: person.sub,
-        conversationId: conversation._id,
-        type: "text",
-        text: messageText,
-      };
+      let message = {};
+      if (!file) {
+        message = {
+          senderId: account.sub,
+          receiverId: person.sub,
+          conversationId: conversation._id,
+          type: "text",
+          text: messageText,
+        };
+      } else {
+        message = {
+          senderId: account.sub,
+          receiverId: person.sub,
+          conversationId: conversation._id,
+          type: "file",
+          text: fileUrl,
+        };
+      }
 
       await newMessage(message);
       setMessageText("");
+      setFile("");
+      setFileUrl("");
       setNewMessageFlag((prev) => !prev);
     }
   };
@@ -55,6 +70,9 @@ export default function ChatBox() {
         sendText={sendText}
         messageText={messageText}
         setMessageText={setMessageText}
+        file={file}
+        setFile={setFile}
+        setFileUrl={setFileUrl}
       />
     </Box>
   );

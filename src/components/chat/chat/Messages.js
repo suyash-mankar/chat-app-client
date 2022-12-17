@@ -15,7 +15,6 @@ const Component = styled(Box)`
 
 const Container = styled(Box)`
   padding: 0px 80px;
-  height: 34px;
 `;
 
 export default function Messages({ person, conversation, newMessageFlag }) {
@@ -35,8 +34,8 @@ export default function Messages({ person, conversation, newMessageFlag }) {
         {messages &&
           messages.map((message) => {
             return (
-              <Container>
-                <Message message={message} />;
+              <Container key={message._id}>
+                <Message message={message} />
               </Container>
             );
           })}
