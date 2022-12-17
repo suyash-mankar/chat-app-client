@@ -10,7 +10,7 @@ import Footer from "./Footer";
 import { getConversation, newMessage } from "../../../service/api";
 
 export default function ChatBox() {
-  const { person, account } = useContext(AccountContext);
+  const { person, account, socket } = useContext(AccountContext);
 
   const [messageText, setMessageText] = useState("");
   const [conversation, setConversation] = useState("");
@@ -49,6 +49,8 @@ export default function ChatBox() {
           text: fileUrl,
         };
       }
+
+      socket.current.emit("sendMessage", message);
 
       await newMessage(message);
       setMessageText("");
