@@ -51,7 +51,7 @@ export default function Message({ message }) {
 
   return (
     <>
-      {account.sub == message.senderId ? (
+      {account.sub === message.senderId ? (
         <Sent>
           {message.type === "file" ? (
             <FileMessage message={message} />

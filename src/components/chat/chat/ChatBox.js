@@ -10,11 +10,11 @@ import Footer from "./Footer";
 import { getConversation, newMessage } from "../../../service/api";
 
 export default function ChatBox() {
-  const { person, account, socket } = useContext(AccountContext);
+  const { person, account, socket, newMessageFlag, setNewMessageFlag } =
+    useContext(AccountContext);
 
   const [messageText, setMessageText] = useState("");
   const [conversation, setConversation] = useState("");
-  const [newMessageFlag, setNewMessageFlag] = useState(false);
   const [file, setFile] = useState();
   const [fileUrl, setFileUrl] = useState("");
 
