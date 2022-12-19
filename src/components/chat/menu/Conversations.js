@@ -22,9 +22,11 @@ export default function Conversations({ searchText }) {
   const { account, socket, setActiveUsers } = useContext(AccountContext);
 
   useEffect(() => {
+    // api call to get all the users from db
     const fetchData = async () => {
       let response = await getUsers();
 
+      // for searching users
       const filteredData = response.filter((user) =>
         user.name.toLowerCase().includes(searchText.toLowerCase())
       );
@@ -35,7 +37,9 @@ export default function Conversations({ searchText }) {
   }, [searchText]);
 
   useEffect(() => {
+    // add the user in the active users array in socket
     socket.current.emit("addUsers", account);
+    // get the active users list from socket and save it in the state
     socket.current.on("getUsers", (users) => {
       setActiveUsers(users);
     });

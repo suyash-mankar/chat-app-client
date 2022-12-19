@@ -4,9 +4,10 @@ import { getMessages } from "../../../service/api";
 import Message from "./Message";
 import { useContext } from "react";
 import { AccountContext } from "../../../context/AccountProvider";
+import { whatsAppBackgroundImage } from "../../../constants/data";
 
 const Wrapper = styled(Box)`
-  background-image: url("https://user-images.githubusercontent.com/84366054/208151388-a2a456aa-16e8-4999-acd3-e0b794db1fb9.jpg");
+  background-image: url(${whatsAppBackgroundImage});
   background-size: 40%;
 `;
 
@@ -20,7 +21,6 @@ const Container = styled(Box)`
 `;
 
 export default function Messages({ person, conversation, newMessageFlag }) {
-
   // get socket from context
   const { socket } = useContext(AccountContext);
 
@@ -48,7 +48,6 @@ export default function Messages({ person, conversation, newMessageFlag }) {
 
   // to set the incoming msg from socket
   useEffect(() => {
-
     // get the incoming msg from socket
     socket.current.on("getMessage", (data) => {
       setIncomingMessage({ ...data, createdAt: Date.now() });

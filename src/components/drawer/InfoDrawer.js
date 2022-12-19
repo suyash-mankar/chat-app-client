@@ -37,6 +37,8 @@ const drawerStyle = {
 };
 
 export default function InfoDrawer({ openDrawer, setOpenDrawer }) {
+
+  // to close the drawer
   const handleClose = () => {
     setOpenDrawer(false);
   };

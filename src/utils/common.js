@@ -1,9 +1,11 @@
+// fnc to format date
 export const formatDate = (date) => {
   const hrs = new Date(date).getHours();
   const mins = new Date(date).getMinutes();
   return `${hrs < 10 ? "0" + hrs : hrs}:${mins < 10 ? "0" + mins : mins}`;
 };
 
+// fnc to download media/files
 export const downloadMedia = (e, fileUrl) => {
   e.preventDefault();
   try {
@@ -17,9 +19,9 @@ export const downloadMedia = (e, fileUrl) => {
         a.href = url;
 
         const nameSplit = fileUrl.split("/");
-        const duplicateNeme = nameSplit.pop();
+        const duplicateName = nameSplit.pop();
 
-        a.download = "" + duplicateNeme + "";
+        a.download = "" + duplicateName + "";
 
         // Append to html link element page
         document.body.appendChild(a);

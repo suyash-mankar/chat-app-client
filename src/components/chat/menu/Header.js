@@ -41,6 +41,7 @@ export default function Header() {
 
   const { account } = useContext(AccountContext);
 
+  // to open/close drawer
   const toggleDrawer = () => {
     setOpenDrawer(true);
   };

@@ -63,6 +63,8 @@ export default function Conversation({ user }) {
     getConversationDetails();
   }, [newMessageFlag]);
 
+
+  // called when any conversation is clicked
   const getUser = async () => {
     // set the user whose profile is clicked in the person context
     setPerson(user);

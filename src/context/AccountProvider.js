@@ -4,6 +4,7 @@ import { io } from "socket.io-client";
 export const AccountContext = createContext(null);
 
 export default function AccountProvider({ children }) {
+
   const [account, setAccount] = useState();
   const [person, setPerson] = useState();
   const [activeUsers, setActiveUsers] = useState([]);
@@ -16,6 +17,7 @@ export default function AccountProvider({ children }) {
   }, []);
 
   return (
+  // following states and socket will be available globally
     <AccountContext.Provider
       value={{
         account,
