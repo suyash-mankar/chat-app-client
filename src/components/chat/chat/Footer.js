@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { Box, InputBase, styled } from "@mui/material";
-import { EmojiEmotionsOutlined, AttachFile, Mic, UploadFile } from "@mui/icons-material";
+import {
+  EmojiEmotionsOutlined,
+  AttachFile,
+  Mic,
+  UploadFile,
+} from "@mui/icons-material";
 import { uploadFile } from "../../../service/api";
 
 const Container = styled(Box)`
@@ -38,26 +43,28 @@ export default function Footer({
   setMessageText,
   file,
   setFile,
-  setFileUrl
+  setFileUrl,
 }) {
-
-
   useEffect(() => {
     const setFile = async () => {
-      if(file) {
+      // if there is a file present
+      if (file) {
         const data = new FormData();
-        data.append('name', file.name);
-        data.append('file', file);
+        data.append("name", file.name);
+        data.append("file", file);
 
+        // api call to upload the file in the database
         let response = await uploadFile(data);
+        // set the file url received in the state
         setFileUrl(response.data);
       }
-    }
+    };
     setFile();
-  }, [file])
+  }, [file]);
 
-
+  // called while adding a file in the input
   const onFileChange = (e) => {
+    // set file in the state
     setFile(e.target.files[0]);
     setMessageText(e.target.files[0].name);
   };
@@ -67,6 +74,7 @@ export default function Footer({
       <EmojiEmotionsOutlined
         style={{ fontSize: "1.7rem", cursor: "pointer" }}
       />
+      {/* when the attach file icon is clicked, onChange fnc of input will be called */}
       <label htmlFor="fileInput">
         <AttachFile
           style={{

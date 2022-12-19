@@ -32,6 +32,7 @@ const SubTitle = styled(Typography)`
   font-family: inherit;
 `;
 
+// when no profile is selected
 export default function EmptyChat() {
   return (
     <Component>

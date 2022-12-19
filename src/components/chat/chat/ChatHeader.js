@@ -41,6 +41,7 @@ const RightContainer = styled(Box)`
 `;
 
 export default function ChatHeader({ person }) {
+  // get the active users from context
   const { activeUsers } = useContext(AccountContext);
 
   return (
@@ -49,6 +50,7 @@ export default function ChatHeader({ person }) {
       <Box>
         <Name> {person.name} </Name>
         <Status>
+          {/* if the person whom I am chatting to is in the activeUsers array, show 'online', otherwise show 'offline' */}
           {activeUsers?.find((user) => user.sub === person.sub) ? (
             <>
               <CircleIcon style={{ color: "green", fontSize: 8 }} /> online

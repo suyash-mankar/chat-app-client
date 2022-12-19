@@ -47,12 +47,15 @@ const Time = styled(Typography)`
 `;
 
 export default function Message({ message }) {
+  // get the logged in use info from context
   const { account } = useContext(AccountContext);
 
   return (
     <>
+      {/* if the accound id matched with the message sender id, render "Sent" component else render "Received" component  */}
       {account.sub === message.senderId ? (
         <Sent>
+          {/* if msg type is file, render <FileMessage /> otherwise render <TextMessage /> */}
           {message.type === "file" ? (
             <FileMessage message={message} />
           ) : (
@@ -72,6 +75,7 @@ export default function Message({ message }) {
   );
 }
 
+// component to render text message text and time
 const TextMessage = ({ message }) => {
   return (
     <>
@@ -81,9 +85,11 @@ const TextMessage = ({ message }) => {
   );
 };
 
+// component to render file message text, img and time
 const FileMessage = ({ message }) => {
   return (
     <Box style={{ position: "relative" }}>
+      {/* if the message is a pdf */}
       {message?.text?.includes(".pdf") ? (
         <Box style={{ display: "flex", alignItems: "center" }}>
           <img src={iconPDF} alt="pdf" style={{ width: 80 }} />

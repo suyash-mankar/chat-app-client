@@ -17,9 +17,11 @@ const LoginHeader = styled(AppBar)`
 `;
 
 export default function Messenger() {
+  // use Context
   const { account } = useContext(AccountContext);
 
   return (
+    // if user is loggin in, show ChatDialog otherwise show LoginDialog with Header
     <Component>
       {account ? (
         <ChatDialog />

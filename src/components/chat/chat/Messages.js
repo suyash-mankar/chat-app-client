@@ -20,15 +20,21 @@ const Container = styled(Box)`
 `;
 
 export default function Messages({ person, conversation, newMessageFlag }) {
+
+  // get socket from context
   const { socket } = useContext(AccountContext);
 
+  // useState
   const [messages, setMessages] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(null);
 
+  // useRef for scroll
   const scrollRef = useRef();
 
+  // call this useEffect whenever person or conversation changes or a new msg is sent
   useEffect(() => {
     const getMessageDetails = async () => {
+      // api call to get all the msg from the db
       const messagesData = await getMessages(conversation._id);
       setMessages(messagesData);
     };
@@ -40,12 +46,16 @@ export default function Messages({ person, conversation, newMessageFlag }) {
     scrollRef.current?.scrollIntoView({ transition: "smooth" });
   }, [messages]);
 
+  // to set the incoming msg from socket
   useEffect(() => {
+
+    // get the incoming msg from socket
     socket.current.on("getMessage", (data) => {
       setIncomingMessage({ ...data, createdAt: Date.now() });
     });
   }, []);
 
+  // add incoming message in messages state
   useEffect(() => {
     incomingMessage &&
       conversation?.members?.includes(incomingMessage.senderId) &&
@@ -55,6 +65,7 @@ export default function Messages({ person, conversation, newMessageFlag }) {
   return (
     <Wrapper>
       <Component>
+        {/* if messages are present, render every message */}
         {messages &&
           messages.map((message) => {
             return (

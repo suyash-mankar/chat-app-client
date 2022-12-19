@@ -49,15 +49,22 @@ const dialogStyle = {
   overflow: "hidden",
 };
 
+// Login Page
 export default function LoginDialog() {
+  // use Context
   const { setAccount } = useContext(AccountContext);
 
+  // when login is successful
   const onLoginSuccess = async (res) => {
+    // decode user details from jwt
     const decoded = jwt_decode(res.credential);
+    // set the account in the context
     setAccount(decoded);
+    // api call to add user in database
     await addUser(decoded);
   };
 
+  // when login failed
   const onLoginError = (res) => {
     console.log("Login Failed", res);
   };
@@ -84,6 +91,7 @@ export default function LoginDialog() {
               transform: "translateX(25%)",
             }}
           >
+            {/* Google Login */}
             <GoogleLogin onSuccess={onLoginSuccess} onError={onLoginError} />
           </Box>
         </Box>

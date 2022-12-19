@@ -2,6 +2,7 @@ import axios from "axios";
 
 const url = `${process.env.REACT_APP_BASE_URL}`;
 
+// add user in database
 export const addUser = async (data) => {
   const { sub, name, picture } = data;
   try {
@@ -11,6 +12,7 @@ export const addUser = async (data) => {
   }
 };
 
+// get users from db
 export const getUsers = async () => {
   try {
     let response = await axios.get(`${url}/users`);
@@ -20,6 +22,7 @@ export const getUsers = async () => {
   }
 };
 
+// add the conversation in the db
 export const setConversation = async (data) => {
   try {
     await axios.post(`${url}/conversations/add`, data);
@@ -28,6 +31,7 @@ export const setConversation = async (data) => {
   }
 };
 
+// get the conversation from the db
 export const getConversation = async (data) => {
   try {
     let response = await axios.post(`${url}/conversations/get`, data);
@@ -37,6 +41,7 @@ export const getConversation = async (data) => {
   }
 };
 
+// add message in db
 export const newMessage = async (data) => {
   try {
     let response = await axios.post(`${url}/messages/add`, data);
@@ -46,6 +51,7 @@ export const newMessage = async (data) => {
   }
 };
 
+// get messages from db
 export const getMessages = async (id) => {
   try {
     let response = await axios.get(`${url}/messages/get/${id}`);
@@ -55,6 +61,7 @@ export const getMessages = async (id) => {
   }
 };
 
+// upload the file in the db
 export const uploadFile = async (data) => {
   try {
     return await axios.post(`${url}/files/upload`, data);

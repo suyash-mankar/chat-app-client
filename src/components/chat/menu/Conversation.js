@@ -41,16 +41,20 @@ const UserName = styled(Typography)`
 `;
 
 export default function Conversation({ user }) {
+  // useContext
   const { setPerson, account, newMessageFlag } = useContext(AccountContext);
 
+  // state to set the latest conversation
   const [latestConversation, setLatestConversation] = useState({});
 
   useEffect(() => {
+    // api call to get conversation details from db
     const getConversationDetails = async () => {
       const data = await getConversation({
         senderId: account.sub,
         receiverId: user.sub,
       });
+      // set the latest conversation in state
       setLatestConversation({
         text: data?.message,
         timestamp: data?.updatedAt,
@@ -60,7 +64,9 @@ export default function Conversation({ user }) {
   }, [newMessageFlag]);
 
   const getUser = async () => {
+    // set the user whose profile is clicked in the person context
     setPerson(user);
+    // api call to add conversation in db
     await setConversation({ senderId: account.sub, receiverId: user.sub });
   };
 
@@ -81,7 +87,9 @@ export default function Conversation({ user }) {
           <Text>
             {/* .includes(localhost) - to check if the latest conversation message was a media */}
             {/* change 'localhost' to production url when going for production */}
-            {latestConversation?.text?.includes("localhost")
+            {latestConversation?.text?.includes(
+              `${process.env.REACT_APP_BASE_URL}`
+            )
               ? "media"
               : latestConversation.text}
           </Text>

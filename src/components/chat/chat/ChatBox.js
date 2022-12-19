@@ -10,9 +10,11 @@ import Footer from "./Footer";
 import { getConversation, newMessage } from "../../../service/api";
 
 export default function ChatBox() {
+  // use Context
   const { person, account, socket, newMessageFlag, setNewMessageFlag } =
     useContext(AccountContext);
 
+  // use State
   const [messageText, setMessageText] = useState("");
   const [conversation, setConversation] = useState("");
   const [file, setFile] = useState();
@@ -20,18 +22,22 @@ export default function ChatBox() {
 
   useEffect(() => {
     const getConversationDetails = async () => {
+      // api call to get the conversation data from db
       let conversationData = await getConversation({
         senderId: account.sub,
         receiverId: person.sub,
       });
+      // set conversation in state
       setConversation(conversationData);
     };
     getConversationDetails();
   }, [person.sub]);
 
+  // on pressing 'enter', send the message
   const sendText = async (e) => {
     if (e.key === "Enter") {
       let message = {};
+      // if the message is not a file
       if (!file) {
         message = {
           senderId: account.sub,
@@ -40,6 +46,7 @@ export default function ChatBox() {
           type: "text",
           text: messageText,
         };
+      // if the message is a file
       } else {
         message = {
           senderId: account.sub,
@@ -50,12 +57,17 @@ export default function ChatBox() {
         };
       }
 
+      // emit message using socket
       socket.current.emit("sendMessage", message);
 
+      // api call to add message in db
       await newMessage(message);
+
+      // empty the states
       setMessageText("");
       setFile("");
       setFileUrl("");
+      // change the state 'newMessageFlag' to re-render whenever a new msg is send
       setNewMessageFlag((prev) => !prev);
     }
   };

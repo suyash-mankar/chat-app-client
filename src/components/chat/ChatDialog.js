@@ -37,6 +37,7 @@ const dialogStyle = {
 };
 
 export default function ChatDialog() {
+  // use Context
   const { person } = useContext(AccountContext);
 
   return (
@@ -51,6 +52,7 @@ export default function ChatDialog() {
           <Menu />
         </LeftComponent>
         <RightComponent>
+          {/* if a person profile in clicked, show ChatBox, otherwise show EmptyChat */}
           {person ? <ChatBox /> : <EmptyChat />}
         </RightComponent>
       </Component>
