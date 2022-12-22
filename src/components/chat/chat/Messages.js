@@ -38,8 +38,8 @@ export default function Messages({ person, conversation, newMessageFlag }) {
       const messagesData = await getMessages(conversation._id);
       setMessages(messagesData);
     };
-    conversation._id && getMessageDetails();
-  }, [person._id, conversation._id, newMessageFlag]);
+    conversation && getMessageDetails();
+  }, [person, conversation, newMessageFlag]);
 
   // To keep the scroll bar at the end
   useEffect(() => {

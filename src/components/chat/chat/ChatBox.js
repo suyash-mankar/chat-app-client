@@ -35,6 +35,7 @@ export default function ChatBox() {
 
   // on pressing 'enter', send the message
   const sendText = async (e) => {
+
     if (e.key === "Enter") {
       let message = {};
       // if the message is not a file
@@ -46,7 +47,7 @@ export default function ChatBox() {
           type: "text",
           text: messageText,
         };
-      // if the message is a file
+        // if the message is a file
       } else {
         message = {
           senderId: account.sub,
