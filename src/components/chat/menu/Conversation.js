@@ -69,7 +69,6 @@ export default function Conversation({ user }) {
     setPerson(user);
     // api call to add conversation in db
     await setConversationInDb({ senderId: account.sub, receiverId: user.sub });
-    console.log("conversation set");
   };
 
   return (
