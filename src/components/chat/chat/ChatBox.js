@@ -7,7 +7,11 @@ import { AccountContext } from "../../../context/AccountProvider";
 import ChatHeader from "./ChatHeader";
 import Messages from "./Messages";
 import Footer from "./Footer";
-import { getConversation, newMessage } from "../../../service/api";
+import {
+  getConversation,
+  newMessage,
+  setConversationInDb,
+} from "../../../service/api";
 
 export default function ChatBox() {
   // use Context
@@ -23,10 +27,24 @@ export default function ChatBox() {
   useEffect(() => {
     const getConversationDetails = async () => {
       // api call to get the conversation data from db
+
       let conversationData = await getConversation({
         senderId: account.sub,
         receiverId: person.sub,
       });
+
+      if (!conversationData) {
+        await setConversationInDb({
+          senderId: account.sub,
+          receiverId: person.sub,
+        });
+
+        conversationData = await getConversation({
+          senderId: account.sub,
+          receiverId: person.sub,
+        });
+      }
+
       // set conversation in state
       setConversation(conversationData);
     };
@@ -35,8 +53,8 @@ export default function ChatBox() {
 
   // on pressing 'enter', send the message
   const sendText = async (e) => {
-
     if (e.key === "Enter") {
+
       let message = {};
       // if the message is not a file
       if (!file) {

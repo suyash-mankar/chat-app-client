@@ -23,7 +23,7 @@ export const getUsers = async () => {
 };
 
 // add the conversation in the db
-export const setConversation = async (data) => {
+export const setConversationInDb = async (data) => {
   try {
     await axios.post(`${url}/conversations/add`, data);
   } catch (error) {

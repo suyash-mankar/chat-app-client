@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { useContext } from "react";
 import { AccountContext } from "../../../context/AccountProvider";
-import { setConversation, getConversation } from "../../../service/api";
+import { setConversationInDb, getConversation } from "../../../service/api";
 import { formatDate } from "../../../utils/common";
 
 const Component = styled(Box)`
@@ -63,13 +63,13 @@ export default function Conversation({ user }) {
     getConversationDetails();
   }, [newMessageFlag]);
 
-
   // called when any conversation is clicked
   const getUser = async () => {
     // set the user whose profile is clicked in the person context
     setPerson(user);
     // api call to add conversation in db
-    await setConversation({ senderId: account.sub, receiverId: user.sub });
+    await setConversationInDb({ senderId: account.sub, receiverId: user.sub });
+    console.log("conversation set");
   };
 
   return (
